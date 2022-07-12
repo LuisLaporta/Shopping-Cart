@@ -4,7 +4,6 @@ const computadorSearch = require('../mocks/search');
 
 describe('1 - Teste a função fetchProducts', () => {
   // implemente seus testes aqui
-  fail('Teste vazio');
   it('Verifica se fetchProducts é uma function', () => {
     expect(typeof(fetchProducts)).toEqual('function');
   });
@@ -30,10 +29,9 @@ describe('1 - Teste a função fetchProducts', () => {
     expect(actual).toEqual(computadorSearch);
   });
 
-  it('Verifica se retorna o erro "You must provide an url" ao chamar a função sem parametro', () => {
+  it('Verifica se retorna o erro "You must provide an url" ao chamar a função sem parametro', async () => {
     expect.assertions(1);
-    const actual = await fetchProducts();
 
-    expect(actual).toThrow('You must provide an url');
+    expect(await fetchProducts()).toEqual(new Error('You must provide an url'));
   });
 });
