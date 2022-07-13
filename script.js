@@ -1,4 +1,5 @@
 const cart = document.querySelector('.cart__items');
+const btnClear = document.querySelector('.empty-cart');
 
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
@@ -93,6 +94,13 @@ const getListCart = () => {
     nli.addEventListener('click', cartItemClickListener);
   }
 };
+
+const clearCart = () => {
+  localStorage.clear();
+  cart.innerHTML = '';
+};
+
+btnClear.addEventListener('click', clearCart);
 
 window.onload = () => { 
   getListCart();
