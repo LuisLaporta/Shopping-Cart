@@ -1,6 +1,8 @@
 const cart = document.querySelector('.cart__items');
 const btnClear = document.querySelector('.empty-cart');
 const all = document.querySelector('.cart');
+const cont = document.querySelector('.container');
+const items = document.querySelector('.items');
 
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
@@ -50,6 +52,14 @@ const loading = () => {
   all.insertBefore(load, btnClear);
 };
 
+const loading2 = () => {
+  const load = document.createElement('span');
+  load.classList.add('loading');
+  load.innerText = 'carregando...';
+  items.innerHTML = '';
+  cont.insertBefore(load, items);
+};
+
 const removeLoad = () => document.querySelector('.loading').remove();
 
 const addItens = async (event) => {
@@ -82,6 +92,7 @@ const createProductItemElement = ({ sku, name, image }) => {
 };
 
 const requestProducts = async () => {
+  loading2();
   const request = await fetchProducts('computador');
   const section = document.querySelector('.items');
 
@@ -90,6 +101,7 @@ const requestProducts = async () => {
     const result = createProductItemElement(obj);
     section.appendChild(result);
   });
+  removeLoad();
 };
 
 const getListCart = () => {
@@ -114,7 +126,6 @@ const clearCart = () => {
 btnClear.addEventListener('click', clearCart);
 
 window.onload = () => {
-  loading();
   getListCart();
   requestProducts();
 };

@@ -156,3 +156,12 @@ body {
   margin-bottom: 1vh;
   font-size: 2.5vh;
 }
+
+span .loading {
+  color: rgb(10, 118, 79);
+  width: 170px;
+  height: 35px;
+  margin: auto;
+  font-size: 2.5vh;
+  position: absolute;
+}
