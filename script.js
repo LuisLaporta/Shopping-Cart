@@ -45,7 +45,7 @@ const createCustomElement = (element, className, innerText) => {
 
 const loading = () => {
   const load = document.createElement('h1');
-  load.className = 'loading';
+  load.classList.add('loading');
   load.innerText = 'carregando...';
   cart.appendChild(load);
 };
