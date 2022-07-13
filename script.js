@@ -1,7 +1,3 @@
-// const { fetchProducts } = require('./helpers/fetchProducts');
-
-// const { fetchItem } = require('./helpers/fetchItem');
-
 const cart = document.querySelector('.cart__items');
 
 const createProductImageElement = (imageSource) => {
@@ -11,9 +7,21 @@ const createProductImageElement = (imageSource) => {
   return img;
 };
 
+const saveCart = () => {
+  const array = [];
+  for (let index = 0; index < cart.children.length; index += 1) {
+    const obj = {
+      text: cart.children[index].innerText,
+    };
+    array.push(obj);
+  }
+  saveCartItems(JSON.stringify(array));
+};
+
 const cartItemClickListener = (event) => {
   // coloque seu código aqui
   event.target.remove();
+  saveCart();
 };
 
 const createCartItemElement = ({ sku, name, salePrice }) => {
@@ -24,18 +32,20 @@ const createCartItemElement = ({ sku, name, salePrice }) => {
   return li;
 };
 
-const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
+// const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
 
-const addItens = async (e) => {
-  const id = e.target.parentNode.firstChild.innerText;
+const addItens = async (event) => {
+  const id = event.target.parentNode.firstChild.innerText;
   const request = await fetchItem(id);
   const obj = {
     sku: request.id,
     name: request.title,
     salePrice: request.price,
   };
+  const result = createCartItemElement(obj);
 
-  cart.appendChild(createCartItemElement(obj));
+  cart.appendChild(result);
+  saveCart();
 };
 
 const createCustomElement = (element, className, innerText) => {
@@ -70,7 +80,21 @@ const requestProducts = async () => {
   });
 };
 
+const getListCart = () => {
+  const itens = getSavedCartItems();
+  console.log(itens);
+  if (!itens) return 'test';
+  for (let i = 0; i < itens.length; i += 1) {
+    const nli = document.createElement('li');
+    nli.innerText = itens[i].text;
+    nli.id = itens[i].id;
+    console.log(nli);
+    cart.appendChild(nli);
+    nli.addEventListener('click', cartItemClickListener);
+  }
+};
+
 window.onload = () => { 
+  getListCart();
   requestProducts();
-  addItens();
 };
