@@ -113,7 +113,8 @@ const clearCart = () => {
 
 btnClear.addEventListener('click', clearCart);
 
-window.onload = () => { 
+window.onload = () => {
+  loading();
   getListCart();
   requestProducts();
 };
