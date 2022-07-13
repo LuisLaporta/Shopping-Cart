@@ -1,5 +1,6 @@
 const cart = document.querySelector('.cart__items');
 const btnClear = document.querySelector('.empty-cart');
+// const all = document.querySelector('.container');
 
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
@@ -35,7 +36,24 @@ const createCartItemElement = ({ sku, name, salePrice }) => {
 
 // const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
 
+const createCustomElement = (element, className, innerText) => {
+  const e = document.createElement(element);
+  e.className = className;
+  e.innerText = innerText;
+  return e;
+};
+
+const loading = () => {
+  const load = document.createElement('h1');
+  load.className = 'loading';
+  load.innerText = 'carregando...';
+  cart.appendChild(load);
+};
+
+const removeLoad = () => document.querySelector('.loading').remove();
+
 const addItens = async (event) => {
+  loading();
   const id = event.target.parentNode.firstChild.innerText;
   const request = await fetchItem(id);
   const obj = {
@@ -44,16 +62,9 @@ const addItens = async (event) => {
     salePrice: request.price,
   };
   const result = createCartItemElement(obj);
-
   cart.appendChild(result);
+  removeLoad();
   saveCart();
-};
-
-const createCustomElement = (element, className, innerText) => {
-  const e = document.createElement(element);
-  e.className = className;
-  e.innerText = innerText;
-  return e;
 };
 
 const createProductItemElement = ({ sku, name, image }) => {
