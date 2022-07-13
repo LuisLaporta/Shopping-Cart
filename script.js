@@ -14,12 +14,10 @@ const createProductImageElement = (imageSource) => {
 const saveCart = () => {
   const array = [];
   for (let index = 0; index < cart.children.length; index += 1) {
-    const obj = {
-      text: cart.children[index].innerText,
-    };
+    const obj = cart.children[index].innerHTML;
     array.push(obj);
+    saveCartItems(JSON.stringify(array));
   }
-  saveCartItems(JSON.stringify(array));
 };
 
 const cartItemClickListener = (event) => {
@@ -61,6 +59,21 @@ const loading2 = () => {
 };
 
 const removeLoad = () => document.querySelector('.loading').remove();
+
+const getListCart = () => {
+  const itens = getSavedCartItems();
+
+  if (!itens) return 'test';
+  if (itens) {
+    for (let i = 0; i < itens.length; i += 1) {
+      const nli = document.createElement('li');
+      nli.innerText = itens[i];
+      console.log(nli);
+      cart.appendChild(nli);
+      nli.addEventListener('click', cartItemClickListener);
+    }
+  }
+};
 
 const addItens = async (event) => {
   loading();
@@ -104,20 +117,6 @@ const requestProducts = async () => {
   removeLoad();
 };
 
-const getListCart = () => {
-  const itens = getSavedCartItems();
-  console.log(itens);
-  if (!itens) return 'test';
-  for (let i = 0; i < itens.length; i += 1) {
-    const nli = document.createElement('li');
-    nli.innerText = itens[i].text;
-    nli.id = itens[i].id;
-    console.log(nli);
-    cart.appendChild(nli);
-    nli.addEventListener('click', cartItemClickListener);
-  }
-};
-
 const clearCart = () => {
   localStorage.clear();
   cart.innerHTML = '';
@@ -126,6 +125,6 @@ const clearCart = () => {
 btnClear.addEventListener('click', clearCart);
 
 window.onload = () => {
-  getListCart();
   requestProducts();
+  getListCart();
 };
