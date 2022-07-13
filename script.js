@@ -1,6 +1,6 @@
 const cart = document.querySelector('.cart__items');
 const btnClear = document.querySelector('.empty-cart');
-// const all = document.querySelector('.container');
+const all = document.querySelector('.cart');
 
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
@@ -47,7 +47,7 @@ const loading = () => {
   const load = document.createElement('h1');
   load.classList.add('loading');
   load.innerText = 'carregando...';
-  cart.appendChild(load);
+  all.insertBefore(load, btnClear);
 };
 
 const removeLoad = () => document.querySelector('.loading').remove();
