@@ -152,16 +152,19 @@ body {
   color: rgb(10, 118, 79);
   width: 170px;
   height: 35px;
-  margin: 0 0 0 4vh;
   margin-bottom: 1vh;
-  font-size: 2.5vh;
 }
 
 span .loading {
+  text-align: center;
   color: rgb(10, 118, 79);
-  width: 170px;
-  height: 35px;
-  margin: auto;
   font-size: 2.5vh;
   position: absolute;
+  margin-right: 100px;
+}
+
+.total-price {
+  text-align: center;
+  font-size: 3vh;
+  margin: 2vh auto;
 }
