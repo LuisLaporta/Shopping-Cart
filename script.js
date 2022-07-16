@@ -161,3 +161,5 @@ window.onload = () => {
   totalPriceSave();
   loading();
 };
+
+// Commit final.
