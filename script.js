@@ -35,7 +35,7 @@ const totalPrice = () => {
   }
   console.log(array);
   const money = array.reduce((acc, curr) => acc + curr, 0);
-  total.innerHTML = `Total: $${money}`;
+  total.innerHTML = money;
 };
 
 const cartItemClickListener = (event) => {
@@ -147,12 +147,14 @@ btnClear.addEventListener('click', clearCart);
 const totalPriceSave = () => {
   const values = getSavedCartItems();
   const array = [];
-  values.forEach((value) => {
-    const priceIten = value.price;
-    array.push(parseFloat(priceIten));
-  });
+  if (values) {
+    values.forEach((value) => {
+      const priceIten = value.price;
+      array.push(parseFloat(priceIten));
+    });
+  }
   const money = array.reduce((acc, curr) => acc + curr, 0);
-  total.innerHTML = `Total: $${money}`;
+  total.innerHTML = money;
 };
 
 window.onload = () => {
